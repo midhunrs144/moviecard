@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>home</title>
+	<link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+<body style="background-color: brown">
+	<div id="maindiv">
+		<div class="heading" id="heading">
+			<h2 style="color: white;float: left;" id="name"></h2>
+
+			<input type="text" value="" onkeyup="searchMovie(this.value)" name="search" id="search" placeholder="search">
+			<!-- <button id="button" onclick="searchMovie()">Search</button> -->
+		</div>
+		<div id="listdiv">
+			<!-- <div class="moviecard" id=" moviecard"><div><h3>movieObjectListArray[0]["name"]</h3></div><div><h5>movieObjectListArray[0]["rating"]</h5></div></div> -->
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+		var username = window.location.href;
+		var username = new URL(username);
+		var username = username.searchParams.get("username");
+		// alert(x);
+		
+		document.getElementById('name').innerHTML = username;
+		
+		// localStorage json 
+		localStorage.setItem("movieObjectList",JSON.stringify([{name: "maayanadi",rating: 9.5,review :"Maathen, who works for a gang, is on the run after accidentally killing a police officer. However, his decision to meet his beloved Aparna before moving out of the country puts his life in danger.",image: "image/mayanadi.jfif"},
+			{name: "vijay superum pournamiyum",rating: 8.5,review :"A young engineering student dreams of becoming a chef, much to the dismay of his family.",image: "image/vijay.jfif"},
+			{name: "london bridge",rating: 7.5,review :"Businessman Vijay's marriage is fixed to Pavitra, the daughter of a wealthy man. Things take a turn when Vijay accidentally meets Merin and falls in love with her.",image: "image/london.jfif" },
+			{name: "joseph",rating: 9,review :"Joseph is a 2018 Malayalam-language Indian thriller-drama film directed by M. Padmakumar and written by Shahi Kabir. It stars Joju George, Dileesh Pothan, Irshad, Athmiya, Johny Antony, Sudhi Koppa, Malavika Menon, and Madhuri Braganza.",image: "image/joseph.jfif"},
+			{name: "maayanadi",rating: 9.5,review :"Maathen, who works for a gang, is on the run after accidentally killing a police officer. However, his decision to meet his beloved Aparna before moving out of the country puts his life in danger.",image: "image/mayanadi.jfif"},
+			{name: "vadakan selfi",rating: 7,review :"When his father asks him to manage their grocery store, Umesh leaves for Chennai to become a film-maker. His life changes after he takes a selfie with his old neighbour and posts it online.",image: "image/selfi.jfif"},
+			{name: "june",rating: 8,review :"The film follows the life story of a girl named June from 16 years of her age until she turned 26, thereby giving an insight into those ten years of her life.",image: "image/june.jfif"},
+			{name: "maayanadi",rating: 9.5,review :"Maathen, who works for a gang, is on the run after accidentally killing a police officer. However, his decision to meet his beloved Aparna before moving out of the country puts his life in danger.",image: "image/mayanadi.jfif"},
+			{name: "melle",rating: 8.2,review :"After a tragic experience, a young woman journeys to her father's homeland and falls in love with a kind-hearted doctor.",image: "image/melle.jfif"},
+			{name: "vimanam",rating: 7.2,review :"Venkidi, an aeronautics enthusiast with hearing disabilities, faces many struggles as he attempts to build an aircraft using recycled materials.",image: "image/vimanam.jfif"},
+			{name: "vimanam",rating: 7.2,review :"Venkidi, an aeronautics enthusiast with hearing disabilities, faces many struggles as he attempts to build an aircraft using recycled materials.",image: "image/vimanam.jfif"},
+			{name: "joseph",rating: 9,review :"Joseph is a 2018 Malayalam-language Indian thriller-drama film directed by M. Padmakumar and written by Shahi Kabir. It stars Joju George, Dileesh Pothan, Irshad, Athmiya, Johny Antony, Sudhi Koppa, Malavika Menon, and Madhuri Braganza.",image: "image/joseph.jfif"},
+			{name: "june",rating: 8,review :"The film follows the life story of a girl named June from 16 years of her age until she turned 26, thereby giving an insight into those ten years of her life.",image: "image/june.jfif"}]));
+
+		// localStorage json 
+		
+		var movieObjectListArray = JSON.parse(localStorage.getItem("movieObjectList"));
+		// alert(movieObjectListArray[0]["name"]);
+
+		
+		var divContent = "";
+		// alert(movieObjectListArray.length);
+		
+		// for displaying movie cards
+		for(var i = 0 ; i< movieObjectListArray.length; i++){
+			divContent = divContent + 
+						'<div class="moviecard"  onclick="review(' + i + ')" id="moviecard' + i + '">\
+							<div id="imageDiv"><img src="' + movieObjectListArray[i]["image"] + '">\
+							</div>\
+							<div >\
+								<h3 class="movieNameAndRating">' + movieObjectListArray[i]["name"] + 
+								'</h3>\
+							</div>\
+							<div>\
+									<h5 class="movieNameAndRating">' + movieObjectListArray[i]["rating"] + '/10\
+									</h5>\
+							</div>\
+						</div>';
+		}
+		
+		document.getElementById('listdiv').innerHTML = divContent;
+		// for displaying movie cards
+		// for passin reviews
+		function review(i){
+			var movieName = movieObjectListArray[i]["name"];
+			var review = movieObjectListArray[i]["review"];
+			window.location.href = "review.html?movieName="+movieName+"&review="+review+"&username="+username;
+		}
+		// for passin reviews
+
+		
+			var divContent = "";
+			for(var i = 0 ; i< movieObjectListArray.length; i++){
+			divContent = divContent + '<div class="moviecard"  onclick="review(' + i + ')" id="moviecard' + i + '"><div id="imageDiv"><img src="' + movieObjectListArray[i]["image"] + '"></div><div><h3 class="movieNameAndRating">' + movieObjectListArray[i]["name"] + '</h3></div><div><h5 class="movieNameAndRating">' + movieObjectListArray[i]["rating"] + '/10</h5></div></div>';
+			}
+			document.getElementById('listdiv').innerHTML = divContent;
+
+			
+			var SearchString = "";
+			// for searching movies
+			function searchMovie(SearchString){
+
+				var flag = 0;
+				var divContent = "";
+				
+				// console.log(SearchString);
+				for (var i = 0; i < movieObjectListArray.length; i++) {
+					var movie = movieObjectListArray[i]["name"];
+					movie = movie.toUpperCase(movie);
+					SearchString = SearchString.toUpperCase(SearchString);
+					
+					if (movie.search(SearchString) >= 0) {
+						flag = 1;
+						divContent = divContent + 
+						'<div class="moviecard"  onclick="review(' + i + ')" id="moviecard' + i + '">\
+							<div id="imageDiv"><img src="' + movieObjectListArray[i]["image"] + '">\
+							</div>\
+							<div >\
+								<h3 class="movieNameAndRating">' + movieObjectListArray[i]["name"] + 
+								'</h3>\
+							</div>\
+							<div>\
+									<h5 class="movieNameAndRating">' + movieObjectListArray[i]["rating"] + '/10\
+									</h5>\
+							</div>\
+						</div>';
+						
+
+					}
+
+					// console.log(divContent);
+				}	
+					if (flag == 0) {document.write("sorry");}
+					document.getElementById('listdiv').innerHTML = divContent;
+					
+				}
+				// for searching movies
+			
+
+
+ 
+	</script>
+</body>
+</html>

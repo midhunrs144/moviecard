@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>
+		Login page
+	</title>
+	<link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+<body>
+	<div>
+		<div class="loginFrontPage">
+		<h1 style="font-family:Arial Black;text-align="center">
+			Login Page
+		</h1>
+		<form name="login">
+			<p>Username&emsp;<id="space"><input type="email" name="userid" id="user"/></p>
+			<p>Password&emsp;&nbsp;<input type="password" name="pass" id="pass"/></p>
+			<p><input type="button" onclick="check(this.form)" value="Login"/>
+			&emsp;&emsp;&emsp;
+			<input type="reset" value="Cancel"/></p>
+		</form>
+		</div>
+	</div>
+	<script language="javascript">
+	
+	/*Function check*/
+	function check(form)
+		{
+ 
+ 			if(form.userid.value == "user@email.com" && form.pass.value == "pwd")
+  				{
+  				var useremail = form.userid.value;
+  	window.location.href = "home.html?username=" + useremail;
+  }
+ else
+ {
+ 	if(form.userid.value=="" && form.pass.value=="")
+   		alert("Please enter a valid username and password");
+   	else if(form.userid.value=="")
+   	alert("Please enter a valid email");
+   else if(form.pass.value=="")
+   	alert("Please enter a valid password");
+   else if(form.userid.value!="user@email.com" && form.pass.value!="pwd")
+   		alert("Please enter a valid email and password");
+   
+  }
+}
+</script>
+</body>
+</html>
